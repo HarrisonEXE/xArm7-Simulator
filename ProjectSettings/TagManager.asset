@@ -9,6 +9,8 @@ TagManager:
   - Slider
   - Spotlight
   - StartArm
+  - Arm
+  - Floodlight
   layers:
   - Default
   - TransparentFX

@@ -10,8 +10,8 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     [SerializeField] private Canvas canvas;
     private ArticulationBody targetArm;
     private GameObject floor;
-    private float panelWidth = 354.196f;
-    private float panelHeight = 280f;
+    private static float panelWidth = 354.196f;
+    private static float panelHeight = 280f;
     //Panel size: 354.196 by 280
     //Floor size: 236.2204 by 196.7379
     // Floor center: -349.8982, -0.9054307
@@ -21,9 +21,9 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     // Front bound: -2.8554307
     // Starting arm pos: -350 (+2.2482), -2 (-0.9554307) //using left bound and back bound
 
-    private float scalingFactor;
+    private static float scalingFactor;
     
-    private RectTransform rectTransform;
+    private static RectTransform rectTransform;
     private CanvasGroup canvasGroup;
 
     private void Awake()
@@ -52,11 +52,17 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     {
         //TODO: Find a better mapping function
         canvasGroup.alpha = 1f;
-        Debug.Log(rectTransform.anchoredPosition);
+        //Debug.Log(rectTransform.anchoredPosition);
         float xPos = (rectTransform.anchoredPosition[0] - (-panelWidth / 2)) / scalingFactor - 3.7686f;
         float zPos = (rectTransform.anchoredPosition[1] - (-panelHeight / 2)) / scalingFactor - 3f;
-        Debug.Log("New measure: " + xPos);
+        //Debug.Log("New measure: " + xPos);
         Vector3 vec = new Vector3(xPos, targetArm.transform.position[1], zPos);
         targetArm.TeleportRoot(vec, new Quaternion(0.353553355f, 0.612372458f, -0.612372458f, 0.353553355f));
+    }
+    public static void MoveBox(float x, float y)
+    {
+        //float newX = ((x + 3.786f) * scalingFactor) - (rectTransform.anchoredPosition[0] - (-panelWidth / 2));
+        //float newY = ((y + 3f) * scalingFactor) - (rectTransform.anchoredPosition[1] - (-panelHeight / 2));
+        //rectTransform.anchoredPosition = new Vector2(newX, newY);
     }
 }

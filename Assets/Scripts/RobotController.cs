@@ -9,6 +9,7 @@ public class RobotController : MonoBehaviour
     public static bool ready = false;
     public static float dampening = 1f;
     public int robotID;
+    public bool isActive = true;
 
     [System.Serializable]
     public struct Joint
@@ -33,7 +34,7 @@ public class RobotController : MonoBehaviour
     //}
 
     // CONTROL
-    public void updateSpeed(float value)
+    public static void updateSpeed(float value)
     {
         dampening = value;
     }
@@ -82,6 +83,10 @@ public class RobotController : MonoBehaviour
     {
         ready = true;
         data = CSVReader.getData();
+    }
+    public void setActive(bool active)
+    {
+        isActive = active;
     }
     public static void finishDance()
     {

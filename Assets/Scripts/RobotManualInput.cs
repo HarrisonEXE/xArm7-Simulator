@@ -6,23 +6,25 @@ public class RobotManualInput : MonoBehaviour
 {
     public GameObject robot;
 
-
     void Update()
     {
         RobotController robotController = robot.GetComponent<RobotController>();
-        for (int i = 0; i < robotController.joints.Length; i++)
+        if (robotController.isActive)
         {
-            float inputVal = Input.GetAxis(robotController.joints[i].inputAxis);
-            //Debug.Log(inputVal);
-            if (Mathf.Abs(inputVal) > 0)
+            
+            for (int i = 0; i < robotController.joints.Length; i++)
             {
-                RotationDirection direction = GetRotationDirection(inputVal);
-                robotController.RotateJoint(i, direction);
-                return;
+                float inputVal = Input.GetAxis(robotController.joints[i].inputAxis);
+                //Debug.Log(inputVal);
+                if (Mathf.Abs(inputVal) > 0)
+                {
+                    RotationDirection direction = GetRotationDirection(inputVal);
+                    robotController.RotateJoint(i, direction);
+                    return;
+                }
             }
+            robotController.StopAllJointRotations();
         }
-        robotController.StopAllJointRotations();
-
     }
 
 
@@ -43,4 +45,5 @@ public class RobotManualInput : MonoBehaviour
             return RotationDirection.None;
         }
     }
+
 }

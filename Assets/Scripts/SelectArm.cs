@@ -7,12 +7,15 @@ using UnityEngine.EventSystems;
 
 public class SelectArm : MonoBehaviour
 {
+    private static GameObject target;
     private static ArticulationBody targetArm;
     private static GameObject light;
 
+
     void Start()
     {
-        targetArm = GameObject.FindGameObjectsWithTag("StartArm")[0].GetComponent<ArticulationBody>();
+        target = GameObject.FindGameObjectsWithTag("Arm")[1]; //Front middle
+        targetArm = target.GetComponent<ArticulationBody>();
         light = GameObject.FindGameObjectsWithTag("Spotlight")[0];
         light.transform.position = new Vector3(targetArm.transform.position[0], light.transform.position[1], targetArm.transform.position[2]);
     }
@@ -23,8 +26,11 @@ public class SelectArm : MonoBehaviour
 
     void OnMouseDown()
     {
-        MoveLight();
-        targetArm = gameObject.GetComponent<ArticulationBody>();
+        target = gameObject; ;
+        targetArm = target.GetComponent<ArticulationBody>();
+        //MoveLight();
+        IsolateArm.MaybeIsolate();
+        DragDrop.MoveBox(targetArm.transform.position[0], targetArm.transform.position[2]);
     }
     public static ArticulationBody getArm()
     {
@@ -33,5 +39,9 @@ public class SelectArm : MonoBehaviour
     public void MoveLight()
     {
         light.transform.position = new Vector3(targetArm.transform.position[0], light.transform.position[1], targetArm.transform.position[2]);
+    }
+    public static GameObject getArmObject()
+    {
+        return target;
     }
 }
