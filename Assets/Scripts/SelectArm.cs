@@ -44,4 +44,9 @@ public class SelectArm : MonoBehaviour
     {
         return target;
     }
+    public static void select(int index) 
+    {
+        target = GameObject.FindGameObjectsWithTag("Arm")[index];
+        targetArm = target.GetComponent<ArticulationBody>();
+    }
 }
